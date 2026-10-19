@@ -56,24 +56,80 @@ class DartTokenizer extends LanguageTokenizer {
   const DartTokenizer();
 
   static const _keywords = {
-    'abstract', 'as', 'assert', 'async', 'await', 'base', 'break', 'case',
-    'catch', 'class', 'const', 'continue', 'covariant', 'default', 'deferred',
-    'do', 'dynamic', 'else', 'enum', 'export', 'extends', 'extension',
-    'external', 'factory', 'false', 'final', 'finally', 'for', 'function',
-    'get', 'hide', 'if', 'implements', 'import', 'in', 'interface', 'is',
-    'late', 'library', 'mixin', 'null', 'on', 'operator', 'part', 'required',
-    'rethrow', 'return', 'sealed', 'set', 'show', 'static', 'super', 'switch',
-    'sync', 'this', 'throw', 'true', 'try', 'typedef', 'var', 'void',
-    'when', 'while', 'with', 'yield',
+    'abstract',
+    'as',
+    'assert',
+    'async',
+    'await',
+    'base',
+    'break',
+    'case',
+    'catch',
+    'class',
+    'const',
+    'continue',
+    'covariant',
+    'default',
+    'deferred',
+    'do',
+    'dynamic',
+    'else',
+    'enum',
+    'export',
+    'extends',
+    'extension',
+    'external',
+    'factory',
+    'false',
+    'final',
+    'finally',
+    'for',
+    'function',
+    'get',
+    'hide',
+    'if',
+    'implements',
+    'import',
+    'in',
+    'interface',
+    'is',
+    'late',
+    'library',
+    'mixin',
+    'null',
+    'on',
+    'operator',
+    'part',
+    'required',
+    'rethrow',
+    'return',
+    'sealed',
+    'set',
+    'show',
+    'static',
+    'super',
+    'switch',
+    'sync',
+    'this',
+    'throw',
+    'true',
+    'try',
+    'typedef',
+    'var',
+    'void',
+    'when',
+    'while',
+    'with',
+    'yield',
   };
 
   @override
   List<CodeToken> tokenize(String code) => _tokenize(
-        code,
-        keywords: _keywords,
-        lineComment: '//',
-        blockComment: const ('/*', '*/'),
-      );
+    code,
+    keywords: _keywords,
+    lineComment: '//',
+    blockComment: const ('/*', '*/'),
+  );
 }
 
 /// Tokenizer for JSON documents.
@@ -85,11 +141,11 @@ class JsonTokenizer extends LanguageTokenizer {
 
   @override
   List<CodeToken> tokenize(String code) => _tokenize(
-        code,
-        keywords: _keywords,
-        lineComment: null,
-        blockComment: null,
-      );
+    code,
+    keywords: _keywords,
+    lineComment: null,
+    blockComment: null,
+  );
 }
 
 /// Tokenizer for YAML documents.
@@ -101,11 +157,11 @@ class YamlTokenizer extends LanguageTokenizer {
 
   @override
   List<CodeToken> tokenize(String code) => _tokenize(
-        code,
-        keywords: _keywords,
-        lineComment: '#',
-        blockComment: null,
-      );
+    code,
+    keywords: _keywords,
+    lineComment: '#',
+    blockComment: null,
+  );
 }
 
 /// Generic scanner shared by all built-in tokenizers.
@@ -150,8 +206,7 @@ List<CodeToken> _tokenize(
       if (code.startsWith(open, i)) {
         flush();
         final end = code.indexOf(close, i + open.length);
-        final commentEnd =
-            end == -1 ? code.length : end + close.length;
+        final commentEnd = end == -1 ? code.length : end + close.length;
         emit(code.substring(i, commentEnd), TokenKind.comment);
         i = commentEnd;
         continue;
@@ -173,8 +228,7 @@ List<CodeToken> _tokenize(
         if (code.startsWith(delimiter, end)) break;
         end++;
       }
-      final stringEnd =
-          (end + delimiter.length).clamp(i, code.length).toInt();
+      final stringEnd = (end + delimiter.length).clamp(i, code.length).toInt();
       emit(code.substring(i, stringEnd), TokenKind.string);
       i = stringEnd;
       continue;
@@ -201,9 +255,10 @@ List<CodeToken> _tokenize(
         end++;
       }
       final word = code.substring(i, end);
-      emit(word, keywords.contains(word)
-          ? TokenKind.keyword
-          : TokenKind.identifier);
+      emit(
+        word,
+        keywords.contains(word) ? TokenKind.keyword : TokenKind.identifier,
+      );
       i = end;
       continue;
     }
@@ -218,8 +273,7 @@ List<CodeToken> _tokenize(
 
 bool _isDigit(String ch) =>
     ch.codeUnitAt(0) >= 0x30 && ch.codeUnitAt(0) <= 0x39;
-bool _isIdentifierStart(String ch) =>
-    ch == '_' || _isLetter(ch) || ch == r'$';
+bool _isIdentifierStart(String ch) => ch == '_' || _isLetter(ch) || ch == r'$';
 bool _isIdentifierPart(String ch) => _isIdentifierStart(ch) || _isDigit(ch);
 bool _isLetter(String ch) {
   final c = ch.toLowerCase().codeUnitAt(0);

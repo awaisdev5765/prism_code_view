@@ -50,10 +50,16 @@ class PrismCodeViewStyle {
 
   /// A pleasant default light-theme palette.
   static const defaultTokenStyles = <TokenKind, TextStyle>{
-    TokenKind.keyword: TextStyle(color: Color(0xFF7F00FF), fontWeight: FontWeight.w600),
+    TokenKind.keyword: TextStyle(
+      color: Color(0xFF7F00FF),
+      fontWeight: FontWeight.w600,
+    ),
     TokenKind.string: TextStyle(color: Color(0xFF0A7D33)),
     TokenKind.number: TextStyle(color: Color(0xFFB45900)),
-    TokenKind.comment: TextStyle(color: Color(0xFF8A8F98), fontStyle: FontStyle.italic),
+    TokenKind.comment: TextStyle(
+      color: Color(0xFF8A8F98),
+      fontStyle: FontStyle.italic,
+    ),
     TokenKind.identifier: TextStyle(color: Color(0xFF0B57D0)),
     TokenKind.punctuation: TextStyle(color: Color(0xFF44474E)),
     TokenKind.plain: TextStyle(),
@@ -61,10 +67,16 @@ class PrismCodeViewStyle {
 
   /// A dark-theme palette (e.g. One-Dark inspired).
   static const darkTokenStyles = <TokenKind, TextStyle>{
-    TokenKind.keyword: TextStyle(color: Color(0xFFC678DD), fontWeight: FontWeight.w600),
+    TokenKind.keyword: TextStyle(
+      color: Color(0xFFC678DD),
+      fontWeight: FontWeight.w600,
+    ),
     TokenKind.string: TextStyle(color: Color(0xFF98C379)),
     TokenKind.number: TextStyle(color: Color(0xFFD19A66)),
-    TokenKind.comment: TextStyle(color: Color(0xFF7F848E), fontStyle: FontStyle.italic),
+    TokenKind.comment: TextStyle(
+      color: Color(0xFF7F848E),
+      fontStyle: FontStyle.italic,
+    ),
     TokenKind.identifier: TextStyle(color: Color(0xFF61AFEF)),
     TokenKind.punctuation: TextStyle(color: Color(0xFFABB2BF)),
     TokenKind.plain: TextStyle(color: Color(0xFFABB2BF)),
@@ -73,7 +85,8 @@ class PrismCodeViewStyle {
   /// Returns a copy with unset fields resolved against [context].
   PrismCodeViewStyle resolve(BuildContext context) {
     final theme = Theme.of(context);
-    final base = textStyle ??
+    final base =
+        textStyle ??
         theme.textTheme.bodyMedium ??
         const TextStyle(fontSize: 14);
     final isDark = theme.brightness == Brightness.dark;
@@ -86,13 +99,15 @@ class PrismCodeViewStyle {
         for (final kind in TokenKind.values)
           kind: base.merge(resolvedTokens[kind] ?? const TextStyle()),
       },
-      background: background ??
+      background:
+          background ??
           (isDark
               ? theme.colorScheme.surfaceContainerHighest
               : const Color(0xFFF6F8FA)),
       borderRadius: borderRadius,
       padding: padding,
-      lineNumberStyle: lineNumberStyle ??
+      lineNumberStyle:
+          lineNumberStyle ??
           TextStyle(color: theme.colorScheme.outline, fontSize: base.fontSize),
       showLineNumbers: showLineNumbers,
       enableCopy: enableCopy,

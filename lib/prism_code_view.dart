@@ -6,5 +6,10 @@ library;
 export 'src/code_view.dart' show PrismCodeView, PrismLanguage;
 export 'src/style.dart' show PrismCodeViewStyle;
 export 'src/tokenizer.dart'
-    show CodeToken, LanguageTokenizer, TokenKind, DartTokenizer, JsonTokenizer,
-    YamlTokenizer;
+    show
+        CodeToken,
+        LanguageTokenizer,
+        TokenKind,
+        DartTokenizer,
+        JsonTokenizer,
+        YamlTokenizer;

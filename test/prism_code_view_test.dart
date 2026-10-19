@@ -4,9 +4,7 @@ import 'package:prism_code_view/prism_code_view.dart';
 
 class MyTokenizer extends LanguageTokenizer {
   @override
-  List<CodeToken> tokenize(String code) => [
-        CodeToken(code, TokenKind.keyword),
-      ];
+  List<CodeToken> tokenize(String code) => [CodeToken(code, TokenKind.keyword)];
 }
 
 void main() {
@@ -47,11 +45,7 @@ void main() {
     });
 
     testWidgets('renders dart keywords with highlight', (tester) async {
-      await pumpCode(
-        tester,
-        'void main() {}',
-        language: PrismLanguage.dart,
-      );
+      await pumpCode(tester, 'void main() {}', language: PrismLanguage.dart);
       expect(find.textContaining('void main()'), findsOneWidget);
     });
 
@@ -65,11 +59,7 @@ void main() {
     });
 
     testWidgets('shows line numbers when enabled', (tester) async {
-      await pumpCode(
-        tester,
-        'line1\nline2',
-        showLineNumbers: true,
-      );
+      await pumpCode(tester, 'line1\nline2', showLineNumbers: true);
       // The gutter renders each line number as its own Text widget.
       expect(find.text('1'), findsOneWidget);
       expect(find.text('2'), findsOneWidget);
@@ -93,20 +83,12 @@ void main() {
     });
 
     testWidgets('custom tokenizer is used', (tester) async {
-      await pumpCode(
-        tester,
-        'custom code',
-        tokenizer: MyTokenizer(),
-      );
+      await pumpCode(tester, 'custom code', tokenizer: MyTokenizer());
       expect(find.textContaining('custom code'), findsOneWidget);
     });
 
     testWidgets('constrains max height and scrolls', (tester) async {
-      await pumpCode(
-        tester,
-        'line\n' * 100,
-        maxHeight: 100,
-      );
+      await pumpCode(tester, 'line\n' * 100, maxHeight: 100);
       expect(find.byType(Scrollbar), findsNothing);
       // Container should exist with scroll.
       expect(find.byType(SingleChildScrollView), findsWidgets);
@@ -116,36 +98,54 @@ void main() {
   group('Tokenizer', () {
     test('DartTokenizer tokenizes keywords', () {
       final tokens = DartTokenizer().tokenize('final x = 1;');
-      expect(tokens.any((t) => t.text == 'final' && t.kind == TokenKind.keyword),
-          isTrue);
+      expect(
+        tokens.any((t) => t.text == 'final' && t.kind == TokenKind.keyword),
+        isTrue,
+      );
       expect(tokens.any((t) => t.kind == TokenKind.number), isTrue);
       expect(tokens.any((t) => t.kind == TokenKind.punctuation), isTrue);
     });
 
     test('DartTokenizer handles strings', () {
       final tokens = DartTokenizer().tokenize("final s = 'hello';");
-      expect(tokens.any((t) => t.text.contains('hello') && t.kind == TokenKind.string),
-          isTrue);
+      expect(
+        tokens.any(
+          (t) => t.text.contains('hello') && t.kind == TokenKind.string,
+        ),
+        isTrue,
+      );
     });
 
     test('DartTokenizer handles comments', () {
       final tokens = DartTokenizer().tokenize('// comment\nfinal x = 1;');
-      expect(tokens.any((t) => t.text.contains('comment') && t.kind == TokenKind.comment),
-          isTrue);
+      expect(
+        tokens.any(
+          (t) => t.text.contains('comment') && t.kind == TokenKind.comment,
+        ),
+        isTrue,
+      );
     });
 
     test('JsonTokenizer tokenizes booleans', () {
       final tokens = JsonTokenizer().tokenize('{"a": true}');
-      expect(tokens.any((t) => t.text == 'true' && t.kind == TokenKind.keyword),
-          isTrue);
+      expect(
+        tokens.any((t) => t.text == 'true' && t.kind == TokenKind.keyword),
+        isTrue,
+      );
     });
 
     test('YamlTokenizer tokenizes comments and booleans', () {
       final tokens = YamlTokenizer().tokenize('# comment\nvalue: true');
-      expect(tokens.any((t) => t.text.contains('comment') && t.kind == TokenKind.comment),
-          isTrue);
-      expect(tokens.any((t) => t.text == 'true' && t.kind == TokenKind.keyword),
-          isTrue);
+      expect(
+        tokens.any(
+          (t) => t.text.contains('comment') && t.kind == TokenKind.comment,
+        ),
+        isTrue,
+      );
+      expect(
+        tokens.any((t) => t.text == 'true' && t.kind == TokenKind.keyword),
+        isTrue,
+      );
     });
 
     test('Tokenizers preserve all input text', () {

@@ -87,9 +87,9 @@ class _PrismCodeViewState extends State<PrismCodeView> {
     final enableCopy = widget.enableCopy ?? style.enableCopy;
     final wrap = widget.wrap ?? style.wrap;
 
-    final tokenizer =
-        widget.tokenizer ?? widget.language.tokenizer;
-    final tokens = tokenizer?.tokenize(widget.code) ??
+    final tokenizer = widget.tokenizer ?? widget.language.tokenizer;
+    final tokens =
+        tokenizer?.tokenize(widget.code) ??
         [CodeToken(widget.code, TokenKind.plain)];
 
     final contentSpan = TextSpan(
@@ -185,9 +185,7 @@ class _LineGutter extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
-        children: [
-          for (var i = 1; i <= lineCount; i++) Text('$i'),
-        ],
+        children: [for (var i = 1; i <= lineCount; i++) Text('$i')],
       ),
     );
   }
