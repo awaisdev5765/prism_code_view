@@ -117,6 +117,12 @@ Use it standalone, or plug it into `prism_markdown`'s `highlighter` callback for
 
 All pure Flutter, all six platforms, MIT licensed, built to work together.
 
+## Screenshot
+
+<p align="center">
+  <img src="doc/screenshot.png" alt="prism_code_view — syntax-highlighted code viewer" width="420">
+</p>
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
