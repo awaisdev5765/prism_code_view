@@ -1,0 +1,12 @@
+# Flutter/Dart build artifacts
+.dart_tool/
+.packages
+build/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# macOS
+.DS_Store
