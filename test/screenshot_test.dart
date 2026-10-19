@@ -39,21 +39,26 @@ void main() {
       }
       await loader.load();
     }
-    final flutterRoot = File(Platform.resolvedExecutable)
-        .parent
-        .parent
-        .parent
-        .parent
-        .parent
-        .path;
-    final iconFont = File(
-      '$flutterRoot/bin/cache/artifacts/material_fonts/'
-      'MaterialIcons-Regular.otf',
-    );
-    if (iconFont.existsSync()) {
+    // Walk up from the test runner binary to find the Flutter SDK's icon
+    // font — the exact depth varies between flutter/dart launch paths.
+    var sdkDir = File(Platform.resolvedExecutable).parent;
+    File? iconFont;
+    for (var i = 0; i < 8; i++) {
+      final candidate = File(
+        '${sdkDir.path}/bin/cache/artifacts/material_fonts/'
+        'MaterialIcons-Regular.otf',
+      );
+      if (candidate.existsSync()) {
+        iconFont = candidate;
+        break;
+      }
+      sdkDir = sdkDir.parent;
+    }
+    final resolved = iconFont;
+    if (resolved != null) {
       final loader = FontLoader('MaterialIcons')
         ..addFont(
-          Future.value(iconFont.readAsBytesSync().buffer.asByteData()),
+          Future.value(resolved.readAsBytesSync().buffer.asByteData()),
         );
       await loader.load();
     }
