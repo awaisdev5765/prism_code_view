@@ -1,0 +1,30 @@
+name: prism_code_view
+description: >-
+  A syntax-highlighted code viewer widget for Flutter. Built-in Dart and JSON
+  tokenizer, copy button, line numbers, and word-wrap. Pure Flutter — no
+  platform channels, works on all six platforms.
+version: 0.1.0
+repository: https://github.com/awaisdev5765/prism_code_view
+issue_tracker: https://github.com/awaisdev5765/prism_code_view/issues
+topics:
+  - code
+  - syntax-highlighting
+  - widget
+  - text
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.16.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

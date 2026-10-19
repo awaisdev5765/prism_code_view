@@ -1,0 +1,7 @@
+# Lints for the runnable example app. Public docs lint is off here — the
+# example is illustrative, not a published API.
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
